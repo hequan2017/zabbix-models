@@ -6,7 +6,7 @@
 
 -  ansible_run   ansible 2.4.2.0 版本api
 
--  linux基础模板
+-  linux基础模板  Template Linux System Base
 
 模板介绍
 
@@ -29,6 +29,9 @@
 8）网络Socket监控，包括：socket数量、tcp/udp mem、tcp_alloc等。
 
 还包括系统本地时间、系统启动时间、/etc/passwd和/etc/hosts文件检测、主机名、最大打开文件数、系统信息等。
+
+---
+
 
 使用方法：
 
