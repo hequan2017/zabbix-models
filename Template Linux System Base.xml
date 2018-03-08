@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-03-02T11:46:53Z</date>
+    <date>2018-03-08T04:36:17Z</date>
     <groups>
         <group>
             <name>Template For Base</name>
@@ -1787,13 +1787,13 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>Memory available</name>
+                    <name>Available memory</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>vm.memory.size[available]</key>
-                    <delay>60</delay>
-                    <history>7d</history>
+                    <delay>1m</delay>
+                    <history>1w</history>
                     <trends>365d</trends>
                     <status>0</status>
                     <value_type>3</value_type>
@@ -1828,100 +1828,18 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>Memory total</name>
+                    <name>Total memory</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>vm.memory.size[total]</key>
-                    <delay>3600</delay>
-                    <history>7d</history>
+                    <delay>1h</delay>
+                    <history>1w</history>
                     <trends>365d</trends>
                     <status>0</status>
                     <value_type>3</value_type>
                     <allowed_hosts/>
                     <units>B</units>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>Memory and Swap</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                    <preprocessing/>
-                    <jmx_endpoint/>
-                    <master_item/>
-                </item>
-                <item>
-                    <name>Memory used</name>
-                    <type>0</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>vm.memory.size[used]</key>
-                    <delay>60</delay>
-                    <history>30d</history>
-                    <trends>365d</trends>
-                    <status>0</status>
-                    <value_type>3</value_type>
-                    <allowed_hosts/>
-                    <units>B</units>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>Memory and Swap</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                    <preprocessing/>
-                    <jmx_endpoint/>
-                    <master_item/>
-                </item>
-                <item>
-                    <name>Memory used percent</name>
-                    <type>0</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>vm.memory.usepercent</key>
-                    <delay>60</delay>
-                    <history>30d</history>
-                    <trends>365d</trends>
-                    <status>0</status>
-                    <value_type>0</value_type>
-                    <allowed_hosts/>
-                    <units>%</units>
                     <snmpv3_contextname/>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -3450,15 +3368,47 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template Linux System Base:vfs.fs.inode[{#FSNAME},pfree].last(0)}&lt;20</expression>
+                            <expression>{Template Linux System Base:vfs.fs.inode[{#FSNAME},pfree].last(0)}&lt;5</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>Free inodes is less than 20% on volume {#FSNAME}</name>
+                            <name>空闲  inodes is less than  5% on volume {#FSNAME}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
                             <status>0</status>
-                            <priority>2</priority>
+                            <priority>5</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template Linux System Base:vfs.fs.inode[{#FSNAME},pfree].last(0)}&lt;20</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>空闲  inodes is less than  20% on volume {#FSNAME}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template Linux System Base:vfs.fs.size[{#FSNAME},pfree].last(0)}&lt;5</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>空闲磁盘空间   is less than 5% on volume {#FSNAME}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>5</priority>
                             <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
@@ -3490,7 +3440,7 @@
                             <correlation_tag/>
                             <url/>
                             <status>0</status>
-                            <priority>2</priority>
+                            <priority>3</priority>
                             <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
@@ -3520,18 +3470,6 @@
                                 <graph_item>
                                     <sortorder>0</sortorder>
                                     <drawtype>0</drawtype>
-                                    <color>611F27</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template Linux System Base</host>
-                                        <key>vfs.fs.inode[{#FSNAME},pfree]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>1</sortorder>
-                                    <drawtype>0</drawtype>
                                     <color>F230E0</color>
                                     <yaxisside>0</yaxisside>
                                     <calc_fnc>2</calc_fnc>
@@ -3542,7 +3480,7 @@
                                     </item>
                                 </graph_item>
                                 <graph_item>
-                                    <sortorder>2</sortorder>
+                                    <sortorder>1</sortorder>
                                     <drawtype>0</drawtype>
                                     <color>BB2A02</color>
                                     <yaxisside>0</yaxisside>
@@ -3551,18 +3489,6 @@
                                     <item>
                                         <host>Template Linux System Base</host>
                                         <key>vfs.fs.size[{#FSNAME},free]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>3</sortorder>
-                                    <drawtype>0</drawtype>
-                                    <color>5A2B57</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template Linux System Base</host>
-                                        <key>vfs.fs.size[{#FSNAME},pfree]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -3624,28 +3550,6 @@
                             <sort_triggers>0</sort_triggers>
                             <resource>
                                 <name>CPU utilization 使用率</name>
-                                <host>Template Linux System Base</host>
-                            </resource>
-                            <max_columns>3</max_columns>
-                            <application/>
-                        </screen_item>
-                        <screen_item>
-                            <resourcetype>0</resourcetype>
-                            <width>500</width>
-                            <height>100</height>
-                            <x>0</x>
-                            <y>1</y>
-                            <colspan>1</colspan>
-                            <rowspan>1</rowspan>
-                            <elements>0</elements>
-                            <valign>0</valign>
-                            <halign>0</halign>
-                            <style>0</style>
-                            <url/>
-                            <dynamic>0</dynamic>
-                            <sort_triggers>0</sort_triggers>
-                            <resource>
-                                <name>Memory usage 使用</name>
                                 <host>Template Linux System Base</host>
                             </resource>
                             <max_columns>3</max_columns>
@@ -3766,22 +3670,6 @@
             <tags/>
         </trigger>
         <trigger>
-            <expression>{Template Linux System Base:system.cpu.util[,iowait].avg(5m)}&gt;20</expression>
-            <recovery_mode>0</recovery_mode>
-            <recovery_expression/>
-            <name>Disk I/O is overloaded on {HOST.NAME}</name>
-            <correlation_mode>0</correlation_mode>
-            <correlation_tag/>
-            <url/>
-            <status>0</status>
-            <priority>2</priority>
-            <description>OS spends significant time waiting for I/O (input/output) operations. It could be indicator of performance issues with storage system.</description>
-            <type>0</type>
-            <manual_close>0</manual_close>
-            <dependencies/>
-            <tags/>
-        </trigger>
-        <trigger>
             <expression>{Template Linux System Base:system.uname.diff(0)}&gt;0</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
@@ -3814,7 +3702,7 @@
             <tags/>
         </trigger>
         <trigger>
-            <expression>{Template Linux System Base:vm.memory.size[available].last(0)}&lt;100M</expression>
+            <expression>{Template Linux System Base:vm.memory.size[available].last(0)}&lt;20M</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Lack of available memory on server {HOST.NAME}</name>
@@ -3823,38 +3711,6 @@
             <url/>
             <status>0</status>
             <priority>3</priority>
-            <description/>
-            <type>0</type>
-            <manual_close>0</manual_close>
-            <dependencies/>
-            <tags/>
-        </trigger>
-        <trigger>
-            <expression>{Template Linux System Base:vm.memory.usepercent.last(0)}&gt;90</expression>
-            <recovery_mode>0</recovery_mode>
-            <recovery_expression/>
-            <name>Memory Use &gt; 90%  on {HOST.NAME}</name>
-            <correlation_mode>0</correlation_mode>
-            <correlation_tag/>
-            <url/>
-            <status>0</status>
-            <priority>2</priority>
-            <description/>
-            <type>0</type>
-            <manual_close>0</manual_close>
-            <dependencies/>
-            <tags/>
-        </trigger>
-        <trigger>
-            <expression>{Template Linux System Base:system.cpu.load[percpu,avg1].avg(5m)}&gt;5</expression>
-            <recovery_mode>0</recovery_mode>
-            <recovery_expression/>
-            <name>Processor load is too high on {HOST.NAME}</name>
-            <correlation_mode>0</correlation_mode>
-            <correlation_tag/>
-            <url/>
-            <status>0</status>
-            <priority>2</priority>
             <description/>
             <type>0</type>
             <manual_close>0</manual_close>
@@ -3952,6 +3808,70 @@
             <status>0</status>
             <priority>1</priority>
             <description/>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>{Template Linux System Base:vm.memory.size[available].last()}&lt;100M</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>剩余内存容量 on  {HOST.NAME}</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>{Template Linux System Base:vm.memory.size[available].last()}&lt;1024M</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>剩余内存容量 on  {HOST.NAME}</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>{Template Linux System Base:system.cpu.load[percpu,avg1].avg(5m)}&gt;5.6</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>处理器负载  on {HOST.NAME}</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>{Template Linux System Base:system.cpu.util[,iowait].avg(5m)}&gt;20</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>磁盘I / O 负载 on {HOST.NAME}</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>OS spends significant time waiting for I/O (input/output) operations. It could be indicator of performance issues with storage system.</description>
             <type>0</type>
             <manual_close>0</manual_close>
             <dependencies/>
@@ -4067,7 +3987,7 @@
             <yaxismax>100.0000</yaxismax>
             <show_work_period>1</show_work_period>
             <show_triggers>0</show_triggers>
-            <type>1</type>
+            <type>0</type>
             <show_legend>1</show_legend>
             <show_3d>0</show_3d>
             <percent_left>0.0000</percent_left>
@@ -4171,41 +4091,6 @@
                     <item>
                         <host>Template Linux System Base</host>
                         <key>system.cpu.util[,idle]</key>
-                    </item>
-                </graph_item>
-            </graph_items>
-        </graph>
-        <graph>
-            <name>Memory usage 使用</name>
-            <width>900</width>
-            <height>200</height>
-            <yaxismin>0.0000</yaxismin>
-            <yaxismax>100.0000</yaxismax>
-            <show_work_period>1</show_work_period>
-            <show_triggers>1</show_triggers>
-            <type>0</type>
-            <show_legend>1</show_legend>
-            <show_3d>0</show_3d>
-            <percent_left>0.0000</percent_left>
-            <percent_right>0.0000</percent_right>
-            <ymin_type_1>1</ymin_type_1>
-            <ymax_type_1>2</ymax_type_1>
-            <ymin_item_1>0</ymin_item_1>
-            <ymax_item_1>
-                <host>Template Linux System Base</host>
-                <key>vm.memory.size[total]</key>
-            </ymax_item_1>
-            <graph_items>
-                <graph_item>
-                    <sortorder>0</sortorder>
-                    <drawtype>5</drawtype>
-                    <color>00C800</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template Linux System Base</host>
-                        <key>vm.memory.size[available]</key>
                     </item>
                 </graph_item>
             </graph_items>
@@ -4418,6 +4303,50 @@
                     <item>
                         <host>Template Linux System Base</host>
                         <key>socket.udp_inuse</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>内存使用</name>
+            <width>900</width>
+            <height>200</height>
+            <yaxismin>0.0000</yaxismin>
+            <yaxismax>100.0000</yaxismax>
+            <show_work_period>1</show_work_period>
+            <show_triggers>1</show_triggers>
+            <type>0</type>
+            <show_legend>1</show_legend>
+            <show_3d>0</show_3d>
+            <percent_left>0.0000</percent_left>
+            <percent_right>0.0000</percent_right>
+            <ymin_type_1>0</ymin_type_1>
+            <ymax_type_1>0</ymax_type_1>
+            <ymin_item_1>0</ymin_item_1>
+            <ymax_item_1>0</ymax_item_1>
+            <graph_items>
+                <graph_item>
+                    <sortorder>0</sortorder>
+                    <drawtype>0</drawtype>
+                    <color>1A7C11</color>
+                    <yaxisside>0</yaxisside>
+                    <calc_fnc>2</calc_fnc>
+                    <type>0</type>
+                    <item>
+                        <host>Template Linux System Base</host>
+                        <key>vm.memory.size[total]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>0</drawtype>
+                    <color>F63100</color>
+                    <yaxisside>0</yaxisside>
+                    <calc_fnc>2</calc_fnc>
+                    <type>0</type>
+                    <item>
+                        <host>Template Linux System Base</host>
+                        <key>vm.memory.size[available]</key>
                     </item>
                 </graph_item>
             </graph_items>
