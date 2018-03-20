@@ -10,9 +10,9 @@ from ansible.executor.playbook_executor import PlaybookExecutor
 from ansible.playbook.play import Play
 import ansible.constants as C
 
-from callback import AdHocResultCallback, PlaybookResultCallBack, \
+from  .callback import AdHocResultCallback, PlaybookResultCallBack, \
     CommandResultCallback
-from exceptions import AnsibleError
+from  .exceptions import AnsibleError
 
 
 __all__ = ["AdHocRunner", "PlayBookRunner"]
@@ -28,6 +28,21 @@ Options = namedtuple('Options', [
     'verbosity', 'check', 'extra_vars', 'playbook_path', 'passwords',
     'diff', 'gathering', 'remote_tmp',
 ])
+import multiprocessing
+
+
+# class  MyTaskQueueManager(TaskQueueManager):
+#     def __initialize_processes(self,num):
+#         self._workers = []
+#         current_process =  multiprocessing.current_process
+#         daemon_my = current_process()._config['daemon'] == False
+#         for i in range(num):
+#             rslt_q = multiprocessing.Queue()
+#             self._workers.append([None,rslt_q])
+
+
+
+
 
 
 def get_default_options():
